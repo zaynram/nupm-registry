@@ -143,10 +143,10 @@ def --env state [
 # The minimum supported `--wait` interval is `200ms`.
 @category process
 export def monitor [
-  --cwd (-d): path
+  --cwd (-d): path # Run the closure from this directory instead of the caller's
   --repr (-r): string # Override the command serialization header value
   --suppress (-s) # Suppress errors; prints them to stderr but loop continues
-  --keybinds (-k): table<code: string, modifiers: list<string>, handler: closure, text: string>
+  --keybinds (-k): table<code: string, modifiers: list<string>, handler: closure, text: string> # Extra key handlers merged with the built-ins; `text` is the footer hint
   --ui = true # Whether the header is shown by default (can be toggled back on)
   --pad: int = 1 # Amount of lines to pad between header and content
   --wait (-w): duration = 2sec # The refresh interval as a duration; used as `input listen` timeout duration
