@@ -8,7 +8,8 @@ hosted at `https://raw.githubusercontent.com/zaynram/nupm-registry/main/registry
 - `<name>.nuon` — one declaration per package: a `[name, version, path, type, info]` table with
   one row per version. All rows are `git`-type so the registry works from any machine: `session`
   and `watch` point back at this repository (`path` = `pkgs/<name>`), `tasks` points at
-  [zaynram/nushell-tasks](https://github.com/zaynram/nushell-tasks).
+  [zaynram/nushell-tasks](https://github.com/zaynram/nushell-tasks), and `test` points at
+  [zaynram/nushell-test](https://github.com/zaynram/nushell-test).
 - `pkgs/` — package sources hosted in this repository.
 - `pack.nu` — refreshes `registry.nuon` hashes from the declarations; run it after any
   declaration change and commit the result.

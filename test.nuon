@@ -1,0 +1,4 @@
+[
+  [name, version, path, type, info];
+  [test, '0.1.0', null, git, {url: 'https://github.com/zaynram/nushell-test', revision: main}]
+]
