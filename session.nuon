@@ -1,1 +1,4 @@
-[[name, version, path, type, info]; [session, "0.1.0", pkgs/session, local, null]]
+[
+  [name, version, path, type, info];
+  [session, '0.1.0', 'pkgs/session', git, {url: 'https://github.com/zaynram/nupm-registry', revision: main}]
+]
