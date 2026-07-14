@@ -1,0 +1,4 @@
+[
+  [name version path type info];
+  [issue 0.0.1-alpha.1 null git {url: `https://github.com/zaynram/nushell-issue` revision: main}]
+]
