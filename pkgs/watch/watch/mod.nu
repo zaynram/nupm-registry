@@ -1,4 +1,7 @@
+# Terminal monitors: rerun a closure on an interval with keybinds, and watch git status live.
+
 # nu-lint-ignore-file: max_function_body_length, block_brace_spacing, unhandled_external_error, error_make_for_non_fatal
+
 const PROMPT: string = $"\n(ansi violet)>>>(ansi rst)"
 const ESC: record = {
   home: (ansi home)
