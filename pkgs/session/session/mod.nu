@@ -1,3 +1,5 @@
+# Manage Zellij sessions: inspect, boot, switch, delete, and open editor panes.
+
 def session-name [context: string]: nothing -> list {
   let names: list<string> = try { zellij list-sessions | to text | lines }
     | parse '{name} {_}' | get name
