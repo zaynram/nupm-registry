@@ -15,8 +15,8 @@ const DEFAULTS: list<string> = [issue tasks]
 # Runs iff nupm manages this machine ($env.NUPM_HOME is set to an existing directory).
 # Otherwise, it will throw an error immediately and prevent installation.
 def --env main [
+  ...modules: string@_modules # The names of any modules to install automatically
   --name (-n): string = ramda # The key to add the registry under
-  --install (-i): list<string>@_modules # The names of any modules to install automatically
   --default (-d) # Install the default set of modules (tasks, issue)
 ]: nothing -> nothing {
   if not ($env has NUPM_HOME) or ($env.NUPM_HOME | path type) != dir {
@@ -27,10 +27,10 @@ def --env main [
   let url: string = $REGISTRY | url join
   let include: path = $env.NUPM_HOME | path join modules
   # --no-confirm: any nupm prompt would hang invisibly in the captured child.
-  let commands: string = match {install: $install default: $default} {
-    {install: null default: false} => []
-    {install: $i default: false} => $i
-    {install: $i default: true} => { $DEFAULTS | append $i | uniq }
+  let commands: string = match {modules: $modules default: $default} {
+    {modules: null default: false} => []
+    {modules: $m default: false} => $m
+    {modules: $m default: true} => { $DEFAULTS | append $m | uniq }
   } | par-each {|mod| $"nupm install --force --no-confirm --registry='($name)' '($mod)'" }
     | prepend ['use nupm' $"nupm registry add --save '($name)' '($url)'"]
     | str join '; '

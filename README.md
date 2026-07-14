@@ -20,3 +20,15 @@ Registered as `ramda` in `$env.NUPM_REGISTRIES` via the persisted index
 
 nupm caches registry indexes and git clones without expiry — after pushing an update here or
 to a package repository, run `nupm registry refresh ramda` so the next install re-fetches.
+
+## Installation
+
+```nu
+let url: string = 'https://raw.githubusercontent.com/zaynram/nupm-registry/refs/heads/main/scripts/install.nu'
+let tmp: path = mktemp --suffix=.nu --dry
+do --env --capture-errors {|...modules: string|
+  http get $url | save $tmp
+  chmod +x $tmp
+  ^$tmp ...$modules
+} # Pass any modules you would like to install automatically here
+```
