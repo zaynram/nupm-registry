@@ -1,5 +1,6 @@
 #!/usr/bin/env -S nu --stdin
 use std/log
+
 # The URL parts for this file's hosted `registry.nuon`.
 const REGISTRY: record<scheme: string, host: string, path: string> = {
   scheme: https
@@ -13,7 +14,7 @@ const DEFAULTS: list<string> = [issue tasks]
 #
 # Runs iff nupm manages this machine ($env.NUPM_HOME is set to an existing directory).
 # Otherwise, it will throw an error immediately and prevent installation.
-def main [
+def --env main [
   --name (-n): string = ramda # The key to add the registry under
   --install (-i): list<string>@_modules # The names of any modules to install automatically
   --default (-d) # Install the default set of modules (tasks, issue)
@@ -48,7 +49,9 @@ def main [
     log error $msg
     error make --unspanned $msg
   }
-  log info $"(ansi g)setup.nupm-tasks done(ansi rst)"
+  if $env not-has NUPM_REGISTRIES { $env.NUPM_REGISTRIES = {} }
+  $env.NUPM_REGISTRIES | upsert $name $url | wrap NUPM_REGISTRIES | load-env
+  log info $"(ansi g)added registry '($name)'(ansi rst)"
 }
 
 def _modules []: nothing -> list<string> {
