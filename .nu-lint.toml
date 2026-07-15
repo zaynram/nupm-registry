@@ -1,0 +1,2 @@
+[rules]
+string_may_be_bare = "off"

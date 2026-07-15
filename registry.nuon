@@ -1,8 +1,9 @@
 [
-  [name,    hash,                                   path];
-  [issue,   md5-7c396f75936549df50327365ceecfb2c, issue.nuon],
-  [session, md5-5ec9d7e26cb1a0adc74fec555e0ddbd0, session.nuon],
-  [tasks,   md5-63b35240f2d5164f9d4318ba3bfb127b, tasks.nuon],
-  [test,    md5-32ef234b184a6a9173c3f6928cb80770, test.nuon],
-  [watch,   md5-7fa582c9fee5a5bd2a819a9680f3daa4, watch.nuon]
+  [name hash path];
+  [docgen md5-f0f1774756da610b65b29d5282c5e914 docgen.nuon]
+  [issue md5-7c396f75936549df50327365ceecfb2c issue.nuon]
+  [session md5-5ec9d7e26cb1a0adc74fec555e0ddbd0 session.nuon]
+  [tasks md5-63b35240f2d5164f9d4318ba3bfb127b tasks.nuon]
+  [test md5-32ef234b184a6a9173c3f6928cb80770 test.nuon]
+  [watch md5-7fa582c9fee5a5bd2a819a9680f3daa4 watch.nuon]
 ]
