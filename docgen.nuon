@@ -3,9 +3,9 @@
   description: "Automatically generate documentation from Nushell source code."
   version: "0.0.1-alpha"
   type: git
-  info: {
-    git: "https://github.com/zaynram/nushell-docgen"
-    ref: main
-  }
   path: null
+  info: {
+    url: "https://github.com/zaynram/nushell-docgen"
+    revision: main
+  }
 }

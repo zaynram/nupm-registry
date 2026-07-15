@@ -1,8 +1,8 @@
 {
   name: watch
   version: "0.1.0"
-  path: pkgs/watch
   type: module
+  path: pkgs/watch
   info: {
     url: "https://github.com/zaynram/nupm-registry"
     revision: main

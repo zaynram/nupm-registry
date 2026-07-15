@@ -1,11 +1,11 @@
 {
   name: tasks
+  description: "Task management utilities built on Nushell's sqlite built-ins."
   version: "0.1.0"
   type: git
+  path: null
   info: {
     url: "https://github.com/zaynram/nushell-tasks"
     revision: main
   }
-  description: "Task management utilities built on Nushell's sqlite built-ins."
-  path: null
 }

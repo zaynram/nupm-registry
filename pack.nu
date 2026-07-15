@@ -11,6 +11,25 @@ def write [
   if $format { topiary format $file }
 }
 
+# Set the empty defaults for any required properties omitted from manifest files.
+def "main fix" [
+  --format (-f) # Format the files on write
+]: nothing -> nothing {
+  for f in (open $NUON | get path | compact --empty) {
+    open $f
+    | upsert path {|row| default { match $row.type { module => $"pkgs/($row.name)" } } }
+    | upsert info {|row|
+      default {
+        match $row.type {
+          module => {url: `https://github.com/zaynram/nupm-registry` revision: main}
+          git => {url: $"https://github.com/zaynram/nushell-($row.name)" revision: main}
+        }
+      }
+    }
+    | write $f --format=$format
+  }
+}
+
 # Update the package registry with the local packages.
 #
 # nupm verifies a package declaration by re-serializing it (`open <name>.nuon

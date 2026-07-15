@@ -1,11 +1,11 @@
 {
   name: issue
+  description: "Issue management CLI with GitHub integration support."
   version: "0.0.1-alpha.1"
   type: git
+  path: null
   info: {
     url: "https://github.com/zaynram/nushell-issue"
     revision: main
   }
-  description: "Issue management CLI with GitHub integration support."
-  path: null
 }
