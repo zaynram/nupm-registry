@@ -61,30 +61,29 @@ def main [
   let mods: list<path> = glob *.nuon --exclude [**/registry.nuon] --no-symlink --no-dir
   if $param.git {
     for f in $mods {
-      let row: record = open $f | select --optional ...$COLS.pkg
+      let row: record = open $f | select ...$COLS.pkg
       if $row.type != git { continue }
       let url: oneof<string, nothing> = $row.info?.url? | default $row.info?.git?
       if $url == null { continue }
-      let new: record = $url | url parse
+      let version: oneof<nothing, string> = $url | url parse
         | update host raw.githubusercontent.com
         | update path {
           append ($row.info.revision? | default $row.info.ref?)
           | compact
           | path join nupm.nuon
+          | str replace .git ``
         }
         | url join
         | http get $in
-        | select --optional ...$COLS.pkg
-        | if not $force and $in == ($row | select --optional ...$COLS.pkg) { continue } else { }
-        | compact --empty
-      $row | merge $new | if $param.ask {
+        | get --optional version
+        | if ($in | is-empty) { continue } else { }
+      $row | upsert version $version | if $param.ask {
         let item = $in
         $item | table --expand | print
-        print "Save remote changes? ([y]/n):"
+        print "Save remote version? ([y]/n):"
         input listen --types=[key]
         | if $in has code and $in.code == n { continue } else { $item }
       } else { }
-      | default null path
       | write --format=$param.fmt $f
     }
   }

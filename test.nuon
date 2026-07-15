@@ -1,9 +1,8 @@
 {
   name: test
   version: "0.1.0"
-  description: "Custom implementation of a Nushell testing framework"
-  type: git
   path: null
+  type: git
   info: {
     url: "https://github.com/zaynram/nushell-test"
     revision: main
