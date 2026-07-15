@@ -1,9 +1,9 @@
 [
   [name hash path];
-  [docgen md5-09abe950bca1714a32dbd534e6f5891a docgen.nuon]
-  [issue md5-ce108c0e0458dff69bbeef66b7207863 issue.nuon]
-  [session md5-e8d777191a60a8d4227d36622209d047 session.nuon]
-  [tasks md5-603c4b79309128a4fe76696e321ad1b0 tasks.nuon]
-  [test md5-41ab57271474beee22e973f586839853 test.nuon]
-  [watch md5-3809de7a836c578f524ab45af348144f watch.nuon]
+  [docgen "md5-a5f383570bbff5c6761675793f8cd3a0" "docgen.nuon"]
+  [issue "md5-164aad0749abb175e87c26e313821124" "issue.nuon"]
+  [tasks "md5-1291015f09352d3c727a84c7d071afe0" "tasks.nuon"]
+  [test "md5-072290818433bf5dd8e5f1277445cbef" "test.nuon"]
+  [watch "md5-d9c21480e680421a1011d7dfe9a7fb4b" "watch.nuon"]
+  [session "md5-e8d777191a60a8d4227d36622209d047" "session.nuon"]
 ]
