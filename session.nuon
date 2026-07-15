@@ -1,10 +1,10 @@
 {
-    name: session,
-    version: "0.1.0",
-    path: pkgs/session,
-    type: module,
-    info: {
-        url: "https://github.com/zaynram/nupm-registry",
-        revision: main
-    }
+  name: session
+  version: "0.1.0"
+  path: pkgs/session
+  type: module
+  info: {
+    url: "https://github.com/zaynram/nupm-registry"
+    revision: main
+  }
 }

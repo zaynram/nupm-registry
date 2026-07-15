@@ -3,6 +3,14 @@
 const ROOT: path = path self . | path expand
 const NUON: path = path self registry.nuon | path expand
 
+def write [
+  file: path
+  --format = false
+]: any -> nothing {
+  to nuon --indent=2 --serialize --pretty | save --force $file
+  if $format { topiary format $file }
+}
+
 # Update the package registry with the local packages.
 #
 # nupm verifies a package declaration by re-serializing it (`open <name>.nuon
@@ -17,10 +25,17 @@ def main [
   --confirm (-c) = true # Await confirmation before writing to disk
   --remote (-r) # Fetch and update the manifest files from their remotes (if applicable)
   --force (-f) # Update the NUON files regardless if there are no changes
+  --pretty (-p) # Run `topiary format *.nuon` after making changes (must be installed)
+  --non-interactive (-n) # Equivalent to `--remote --pretty --confirm=false`
 ]: nothing -> table<name: string, path: path, hash: string> {
+  let param: record<ask: bool, git: bool, fmt: bool> = {
+    ask: ($confirm and not $non_interactive)
+    git: ($remote or $non_interactive)
+    fmt: ($pretty or $non_interactive)
+  }
   cd $ROOT
   let mods: list<path> = glob *.nuon --exclude [**/registry.nuon] --no-symlink --no-dir
-  if $remote {
+  if $param.git {
     for f in $mods {
       let row: record = open $f
       if $row.type != git { continue }
@@ -38,15 +53,15 @@ def main [
         | select --optional description version
         | if not $force and $in == ($row | select --optional description version) { continue } else { }
         | compact --empty
-      $row | merge $new | if $confirm {
+      $row | merge $new | if $param.ask {
         let item = $in
         $item | table --expand | print
         print "Save remote changes? ([y]/n):"
         input listen --types=[key]
         | if $in has code and $in.code == n { continue } else { $item }
       } else { }
-      | to nuon --indent=4 --pretty --raw-strings
-      | save --force $f
+      | default null path
+      | write --format=$param.fmt $f
     }
   }
   let prev: table = append (open $NUON) | sort-by name
@@ -63,15 +78,14 @@ def main [
       $row == null or $row.hash != $x.hash
     }
     | collect
-    | if $confirm and ($in | is-not-empty) {
+    | if $param.ask and ($in | is-not-empty) {
       input list "Select changes" --multi
     } else { }
     | if ($in | is-empty) { return $prev } else { }
     | compact --empty
     | sort-by name
   let next = $curr | append $prev | uniq-by name
-  $next | to nuon --pretty --indent=2
-  | if (which nu-lint | is-not-empty) { nu-lint --stdin --fix } else { }
-  | save --force $NUON
+  $next | write --format=$param.fmt $NUON
+  if $pretty { format }
   return $next
 }
