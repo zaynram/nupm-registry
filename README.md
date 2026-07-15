@@ -23,12 +23,25 @@ to a package repository, run `nupm registry refresh ramda` so the next install r
 
 ## Installation
 
+> Note: `nupm` needs to be setup in the target environment before installing.
+
+### Manual
+
 ```nu
-let url: string = 'https://raw.githubusercontent.com/zaynram/nupm-registry/refs/heads/main/scripts/install.nu'
-let tmp: path = mktemp --suffix=.nu --dry
-do --env --capture-errors {|...modules: string|
-  http get $url | save $tmp
-  chmod +x $tmp
-  ^$tmp ...$modules
-} # Pass any modules you would like to install automatically here
+#
+use nupm
+# `ramda` is a default; you can choose any name for the registry
+nupm registry add ramda https://raw.githubusercontent.com/zaynram/nupm-registry/main/registry.nuon
+# install plugins from the registry
+nupm install --registry=ramda # ...[session|watch|docgen|tasks|issue|test]
+```
+
+### Script
+
+```nu
+git clone https://github.com/zaynram/nupm-registry.git
+chmod +x nupm-registry/scripts/install.nu
+# usage: install.nu ...<modules> [--default] [--name=<registry_name>]
+./nupm-registry/scripts/install.nu
+rm -rf nupm-registry
 ```
