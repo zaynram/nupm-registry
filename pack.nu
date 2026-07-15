@@ -15,8 +15,8 @@ def write [
 def "main fix" [
   --format (-f) # Format the files on write
 ]: nothing -> nothing {
-  open $NUON | par-each {|orig|
-    let row: record = open $orig.path
+  for f in (open $NUON | get path) {
+    let row: record = open $f
       | upsert path {|row| default { match $row.type { module => $"pkgs/($row.name)" } } }
       | upsert info {|row|
         default {
@@ -26,9 +26,8 @@ def "main fix" [
           }
         }
       }
-    $row | write $orig.path --format=$format
-    $orig | upsert info { default $row.info }
-  } | collect | write --format=$format $NUON
+    $row | write $f --format=$format
+  }
 }
 
 # Update the package registry with the local packages.
