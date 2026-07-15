@@ -15,19 +15,20 @@ def write [
 def "main fix" [
   --format (-f) # Format the files on write
 ]: nothing -> nothing {
-  for f in (open $NUON | get path | compact --empty) {
-    open $f
-    | upsert path {|row| default { match $row.type { module => $"pkgs/($row.name)" } } }
-    | upsert info {|row|
-      default {
-        match $row.type {
-          module => {url: `https://github.com/zaynram/nupm-registry` revision: main}
-          git => {url: $"https://github.com/zaynram/nushell-($row.name)" revision: main}
+  open $NUON | par-each {|orig|
+    let row: record = open $orig.path
+      | upsert path {|row| default { match $row.type { module => $"pkgs/($row.name)" } } }
+      | upsert info {|row|
+        default {
+          match $row.type {
+            module => {url: `https://github.com/zaynram/nupm-registry` revision: main}
+            git => {url: $"https://github.com/zaynram/nushell-($row.name)" revision: main}
+          }
         }
       }
-    }
-    | write $f --format=$format
-  }
+    $row | write $orig.path --format=$format
+    $orig | upsert info { default $row.info }
+  } | collect | write --format=$format $NUON
 }
 
 # Update the package registry with the local packages.

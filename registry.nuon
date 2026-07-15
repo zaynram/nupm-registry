@@ -1,9 +1,57 @@
 [
-  [name hash path];
-  [docgen "md5-09abe950bca1714a32dbd534e6f5891a" "docgen.nuon"]
-  [issue "md5-ce108c0e0458dff69bbeef66b7207863" "issue.nuon"]
-  [session "md5-e8d777191a60a8d4227d36622209d047" "session.nuon"]
-  [tasks "md5-603c4b79309128a4fe76696e321ad1b0" "tasks.nuon"]
-  [test "md5-41ab57271474beee22e973f586839853" "test.nuon"]
-  [watch "md5-3809de7a836c578f524ab45af348144f" "watch.nuon"]
+  [name hash path info];
+  [
+    tasks
+    "md5-603c4b79309128a4fe76696e321ad1b0"
+    "tasks.nuon"
+    {
+      url: "https://github.com/zaynram/nushell-tasks"
+      revision: main
+    }
+  ]
+  [
+    watch
+    "md5-3809de7a836c578f524ab45af348144f"
+    "watch.nuon"
+    {
+      url: "https://github.com/zaynram/nupm-registry"
+      revision: main
+    }
+  ]
+  [
+    docgen
+    "md5-09abe950bca1714a32dbd534e6f5891a"
+    "docgen.nuon"
+    {
+      url: "https://github.com/zaynram/nushell-docgen"
+      revision: main
+    }
+  ]
+  [
+    test
+    "md5-41ab57271474beee22e973f586839853"
+    "test.nuon"
+    {
+      url: "https://github.com/zaynram/nushell-test"
+      revision: main
+    }
+  ]
+  [
+    issue
+    "md5-ce108c0e0458dff69bbeef66b7207863"
+    "issue.nuon"
+    {
+      url: "https://github.com/zaynram/nushell-issue"
+      revision: main
+    }
+  ]
+  [
+    session
+    "md5-e8d777191a60a8d4227d36622209d047"
+    "session.nuon"
+    {
+      url: "https://github.com/zaynram/nupm-registry"
+      revision: main
+    }
+  ]
 ]
