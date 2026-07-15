@@ -5,5 +5,6 @@
     info: {
         url: "https://github.com/zaynram/nushell-test",
         revision: main
-    }
+    },
+    description: "Custom implementation of a Nushell testing framework"
 }

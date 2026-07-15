@@ -5,5 +5,6 @@
     info: {
         url: "https://github.com/zaynram/nushell-issue",
         revision: main
-    }
+    },
+    description: "Issue management CLI with GitHub integration support."
 }

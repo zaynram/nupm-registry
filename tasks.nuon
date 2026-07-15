@@ -5,5 +5,6 @@
     info: {
         url: "https://github.com/zaynram/nushell-tasks",
         revision: main
-    }
+    },
+    description: "Task management utilities built on Nushell's sqlite built-ins."
 }

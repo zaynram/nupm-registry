@@ -114,7 +114,7 @@ def "footer lines" [
 
 def teardown []: nothing -> nothing {
   print --no-newline $"(ansi csr (term height | $in - 1))($ESC.cnorm)($ESC.wrap)($ESC.rmcup)"
-  stty sane | ignore
+  stty sane
 }
 
 def --env state [
@@ -219,7 +219,7 @@ export def monitor [
 
 def "input dismiss" [prompt?: string]: nothing -> nothing {
   print ($prompt | default "press any key to dismiss")
-  input listen --types [key] | ignore
+  input listen --types [key]
 }
 def "input select" [prompt: string column: string --case-sensitive (-c)]: table -> list<string> {
   input list $"(ansi dark_gray)($prompt)(ansi rst)" --multi --fuzzy --case-sensitive $case_sensitive
