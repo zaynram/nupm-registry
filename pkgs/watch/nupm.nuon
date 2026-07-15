@@ -1,8 +1,0 @@
-{
-  name: watch
-  version: 0.1.0
-  type: module
-  description: "Interactive process monitor TUI and git status watcher"
-  path: pkgs/watch
-  info: {git: `https://github.com/zaynram/nupm-registry` ref: main}
-}

@@ -1,10 +1,10 @@
 {
   name: session
   version: "0.1.0"
-  path: pkgs/session
-  type: module
+  path: null
+  type: git
   info: {
-    url: "https://github.com/zaynram/nupm-registry"
+    url: "https://github.com/zaynram/nushell-session"
     revision: main
   }
 }
