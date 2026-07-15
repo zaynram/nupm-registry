@@ -1,9 +1,9 @@
 [
   [name path hash];
-  [session "session.nuon" "md5-b3fc3f9b18577ef424483ea72e734855"]
-  [watch "watch.nuon" "md5-a574e603e23b06a4d574176947f59860"]
+  [session "session.nuon" "md5-2dc843ffd61503e27a73f2cda9aedcd5"]
   [docgen "docgen.nuon" "md5-0e5a7a368ca89094fa2246184c3c292f"]
   [issue "issue.nuon" "md5-5ad8a260c3f7b30f5796ce79a7c127b6"]
   [tasks "tasks.nuon" "md5-70dee79813c89da4a1c892b15a05c67e"]
   [test "test.nuon" "md5-b6ce15fff4ae649a2ca101f2152d29ac"]
+  [watch "watch.nuon" "md5-a574e603e23b06a4d574176947f59860"]
 ]
