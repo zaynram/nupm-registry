@@ -2,6 +2,10 @@
 
 const ROOT: path = path self . | path expand
 const NUON: path = path self registry.nuon | path expand
+const COLS: record<pkg: list<string>, reg: list<string>> = {
+  pkg: [name version path type info]
+  reg: [name path hash]
+}
 
 def write [
   file: path
@@ -26,7 +30,7 @@ def "main fix" [
           }
         }
       }
-    $row | write $f --format=$format
+    $row | select ...$COLS.pkg | write $f --format=$format
   }
 }
 
@@ -45,7 +49,8 @@ def main [
   --remote (-r) # Fetch and update the manifest files from their remotes (if applicable)
   --force (-f) # Update the NUON files regardless if there are no changes
   --pretty (-p) # Run `topiary format *.nuon` after making changes (must be installed)
-  --non-interactive (-n) # Equivalent to `--remote --pretty --confirm=false`
+  --auto-fix (-a) # Run the `fix` subcommand automatically after packaging
+  --non-interactive (-n) # Equivalent to `--auto-fix --remote --pretty --confirm=false`
 ]: nothing -> table<name: string, path: path, hash: string> {
   let param: record<ask: bool, git: bool, fmt: bool> = {
     ask: ($confirm and not $non_interactive)
@@ -56,7 +61,7 @@ def main [
   let mods: list<path> = glob *.nuon --exclude [**/registry.nuon] --no-symlink --no-dir
   if $param.git {
     for f in $mods {
-      let row: record = open $f
+      let row: record = open $f | select --optional ...$COLS.pkg
       if $row.type != git { continue }
       let url: oneof<string, nothing> = $row.info?.url? | default $row.info?.git?
       if $url == null { continue }
@@ -69,8 +74,8 @@ def main [
         }
         | url join
         | http get $in
-        | select --optional description version
-        | if not $force and $in == ($row | select --optional description version) { continue } else { }
+        | select --optional ...$COLS.pkg
+        | if not $force and $in == ($row | select --optional ...$COLS.pkg) { continue } else { }
         | compact --empty
       $row | merge $new | if $param.ask {
         let item = $in
@@ -104,7 +109,7 @@ def main [
     | compact --empty
     | sort-by name
   let next = $curr | append $prev | uniq-by name
-  $next | write --format=$param.fmt $NUON
-  if $pretty { format }
+  $next | select ...$COLS.reg | write --format=$param.fmt $NUON
+  if $auto_fix { main fix }
   return $next
 }
