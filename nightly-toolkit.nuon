@@ -1,0 +1,10 @@
+{
+  name: nightly-toolkit
+  version: "0.1.0-alpha.1"
+  path: null
+  type: git
+  info: {
+    url: "https://github.com/zaynram/nushell-nightly-toolkit"
+    revision: main
+  }
+}
